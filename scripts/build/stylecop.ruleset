@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Rules for test platform tests" Description="Code analysis rules for product projects." ToolsVersion="14.0">
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <!-- Allow use of regions -->
+    <Rule Id="SA1124" Action="None" />
+
+    <!-- Don't force a trailing comma in multiline object initializers -->
+    <Rule Id="SA1413" Action="None" />
+  </Rules>
+</RuleSet>

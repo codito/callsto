@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CallstoRoot Condition="$(CallstoRoot) == ''">$(MSBuildThisFileDirectory)../../</CallstoRoot>
+  </PropertyGroup>
+
+  <!-- Dependency versions -->
+  <PropertyGroup>
+    <StylecopVersion>1.1.0-beta004</StylecopVersion>
+
+    <MonoCecilVersion>0.10.0-beta7</MonoCecilVersion>
+
+    <TestSdkVersion>15.5.0</TestSdkVersion>
+    <TestFrameworkVersion>1.2.0</TestFrameworkVersion>
+  </PropertyGroup>
+
+  <!-- Code analysis -->
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!--
+    Make sure any documentation comments which are included in code get checked for syntax during the build, but do
+    not report warnings for missing comments.
+
+    CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
+    CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
+    -->
+    <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>$(NoWarn),1573,1591</NoWarn>
+
+    <CodeAnalysisRuleSet Condition="'$(TestProject)' == ''">$(CallstoRoot)scripts/build/stylecop.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(TestProject)' != ''">$(CallstoRoot)scripts/build/stylecop.test.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(CallstoRoot)scripts/build/stylecop.json" />
+
+    <PackageReference Include="StyleCop.Analyzers" Version="$(StylecopVersion)" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

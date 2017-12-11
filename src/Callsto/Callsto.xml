@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Callsto</name>
+    </assembly>
+    <members>
+        <member name="T:Callsto.CallGraph">
+            <summary>
+            Provides a call graph for all types in a module.
+            </summary>
+        </member>
+        <member name="M:Callsto.CallGraph.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Callsto.CallGraph"/> class.
+            </summary>
+            <param name="assemblies">Set of assemblies</param>
+        </member>
+        <member name="M:Callsto.CallGraph.Build">
+            <summary>
+            Builds a graph of methods in the assemblies.
+            </summary>
+            <returns>Set of root nodes in the forest</returns>
+        </member>
+        <member name="T:Callsto.ConsoleOutput">
+            <summary>
+            Primitives to export to console.
+            </summary>
+        </member>
+        <member name="M:Callsto.ConsoleOutput.ToConsole``1(System.Collections.Generic.IEnumerable{Callsto.Node{``0}})">
+            <summary>
+            Prints the graphs on a console.
+            </summary>
+            <param name="roots">Root nodes of graphs in the pseudoforest.</param>
+            <typeparam name="T">Base type for the graph.</typeparam>
+        </member>
+        <member name="T:Callsto.Edge`1">
+            <summary>
+            An edge of between nodes.
+            </summary>
+            <typeparam name="T">Type of tree node.</typeparam>
+        </member>
+        <member name="M:Callsto.Edge`1.#ctor(`0,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Callsto.Edge`1"/> class.
+            </summary>
+            <param name="start">Start node for the edge.</param>
+            <param name="end">End node for the edge.</param>
+        </member>
+        <member name="P:Callsto.Edge`1.End">
+            <summary>
+            Gets the destination node reference.
+            </summary>
+        </member>
+        <member name="P:Callsto.Edge`1.Start">
+            <summary>
+            Gets the source node reference.
+            </summary>
+        </member>
+        <member name="T:Callsto.IModule">
+            <summary>
+            Abstracts a net assembly module.
+            </summary>
+        </member>
+        <member name="P:Callsto.IModule.Types">
+            <summary>
+            Gets the types defined in this module.
+            </summary>
+        </member>
+        <member name="T:Callsto.Module">
+            <inheritdoc/>
+        </member>
+        <member name="M:Callsto.Module.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Callsto.Module"/> class.
+            </summary>
+            <param name="assemblyPath">Full path to an assembly.</param>
+        </member>
+        <member name="P:Callsto.Module.Types">
+            <inheritdoc/>
+        </member>
+        <member name="T:Callsto.Node`1">
+            <summary>
+            A node of a tree.
+            </summary>
+            <typeparam name="T">Type of tree node.</typeparam>
+        </member>
+        <member name="M:Callsto.Node`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Callsto.Node`1"/> class.
+            </summary>
+            <param name="element">Data for the node.</param>
+        </member>
+        <member name="P:Callsto.Node`1.Element">
+            <summary>
+            Gets the element for this node.
+            </summary>
+        </member>
+        <member name="P:Callsto.Node`1.Children">
+            <summary>
+            Gets the set of outgoing edges.
+            </summary>
+        </member>
+        <member name="T:Callsto.Program">
+            <summary>
+            Callsto application.
+            </summary>
+        </member>
+        <member name="M:Callsto.Program.Main(System.String[])">
+            <summary>
+            Program entrypoint.
+            </summary>
+            <param name="args">Set of command line arguments.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <CallstoRoot Condition="'$(CallstoRoot)' == ''">../../</CallstoRoot>
+    <TestProject>true</TestProject>
+  </PropertyGroup>
+  <Import Project="$(CallstoRoot)scripts/build/Callsto.Settings.targets" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(CallstoRoot)src/Callsto/Callsto.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(TestSdkVersion)" />
+    <PackageReference Include="MSTest.TestAdapter" Version="$(TestFrameworkVersion)" />
+    <PackageReference Include="MSTest.TestFramework" Version="$(TestFrameworkVersion)" />
+  </ItemGroup>
+
+  <Import Project="$(CallstoRoot)scripts/build/Callsto.targets" />
+
+</Project>

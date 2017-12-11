@@ -9,6 +9,9 @@
     <StylecopVersion>1.1.0-beta004</StylecopVersion>
 
     <MonoCecilVersion>0.10.0-beta7</MonoCecilVersion>
+    <CommandLineVersion>2.1.1-beta</CommandLineVersion>
+    <SerilogVersion>2.6.0</SerilogVersion>
+    <SerilogConsoleVersion>3.1.1</SerilogConsoleVersion>
 
     <TestSdkVersion>15.5.0</TestSdkVersion>
     <TestFrameworkVersion>1.2.0</TestFrameworkVersion>

@@ -3,7 +3,10 @@
 
 namespace Callsto
 {
+    using System.Collections.Generic;
+
     using CommandLine;
+    using CommandLine.Text;
     using Serilog;
 
     /// <summary>
@@ -15,29 +18,54 @@ namespace Callsto
         /// Program entrypoint.
         /// </summary>
         /// <param name="args">Set of command line arguments.</param>
-        public static void Main(string[] args)
+        /// <returns>0 if successful</returns>
+        public static int Main(string[] args)
+        {
+            return Parser.Default.ParseArguments<CallstoOptions>(args)
+                .MapResult(opt => Run(opt), err => 1);
+        }
+
+        /// <summary>
+        /// Runs the application with parsed options.
+        /// </summary>
+        /// <param name="options">Parsed options.</param>
+        /// <returns>0 if successful</returns>
+        private static int Run(CallstoOptions options)
         {
             var loggerConfig = new LoggerConfiguration();
-            var parser = new Parser(with => with.EnableDashDash = true);
-            var result = parser.ParseArguments<CallstoOptions>(args)
-                .WithParsed(option =>
-                        {
-                            if (option.Debug)
-                            {
-                                loggerConfig = loggerConfig.MinimumLevel.Debug();
-                            }
-                        });
+            if (options.Debug)
+            {
+                loggerConfig = loggerConfig.MinimumLevel.Debug();
+            }
 
             Log.Logger = loggerConfig.WriteTo.Console().CreateLogger();
-            var callgraph = new CallGraph(new[] { args[0] });
+
+            // Module.Explore(files).Methods().
+            var callgraph = new CallGraph(options.Files);
             var graph = callgraph.Build();
             ConsoleOutput.ToConsole(graph);
+
+            return 0;
         }
 
         private class CallstoOptions
         {
-            [Option('d')]
+            [Usage(ApplicationAlias = "callsto")]
+            public static IEnumerable<Example> Examples
+            {
+                get
+                {
+                    yield return new Example("Command", new CallstoOptions { Files = new[] { "[OPTION]...", "[FILE]..." } });
+                    yield return new Example("Print call graph to console", new CallstoOptions { Files = new[] { "foo.dll", "/tmp/bar.dll" } });
+                    yield return new Example("Show diagnostic messages", new CallstoOptions { Files = new[] { "foo.dll" }, Debug = true });
+                }
+            }
+
+            [Option('d', "debug", HelpText = "Print diagnostic messages")]
             public bool Debug { get; set; }
+
+            [Value(0, MetaName = "[FILE]...", HelpText = "List of assemblies to explore", Required = true)]
+            public IEnumerable<string> Files { get; set; }
         }
     }
 }

@@ -110,6 +110,14 @@
             Program entrypoint.
             </summary>
             <param name="args">Set of command line arguments.</param>
+            <returns>0 if successful</returns>
+        </member>
+        <member name="M:Callsto.Program.Run(Callsto.Program.CallstoOptions)">
+            <summary>
+            Runs the application with parsed options.
+            </summary>
+            <param name="options">Parsed options.</param>
+            <returns>0 if successful</returns>
         </member>
     </members>
 </doc>

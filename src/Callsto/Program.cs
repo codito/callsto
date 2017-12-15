@@ -4,6 +4,7 @@
 namespace Callsto
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using CommandLine;
     using CommandLine.Text;
@@ -44,6 +45,17 @@ namespace Callsto
             var callgraph = new CallGraph(options.Files);
             var graph = callgraph.Build();
             ConsoleOutput.ToConsole(graph);
+
+            GraphConfig.Default
+                       .Assembly(options.Files.First())
+                       .Modules()
+                       .SelectMany(m => m.Types)
+                       .SelectMany(t => t.Methods)
+                       .SelectMany(m => Method.Edges(m))
+                       .Graph()
+                       .DepthFirstWalk(m => System.Console.Write("{0}->", m.Element.ToString()), n => System.Console.WriteLine("END"))
+                       .ToList()
+                       .ForEach(m => System.Console.Write("\nM: " + m.Element.ToString()));
 
             return 0;
         }

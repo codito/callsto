@@ -15,6 +15,7 @@
     <PackageReference Include="CommandLineParser" Version="$(CommandLineVersion)" />
     <PackageReference Include="Serilog" Version="$(SerilogVersion)" />
     <PackageReference Include="Serilog.Sinks.Console" Version="$(SerilogConsoleVersion)" />
+    <PackageReference Include="System.Collections.Immutable" Version="$(SystemImmutableVersion)" />
   </ItemGroup>
 
   <Import Project="$(CallstoRoot)scripts/build/Callsto.targets" />

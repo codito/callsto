@@ -12,6 +12,7 @@
     <CommandLineVersion>2.1.1-beta</CommandLineVersion>
     <SerilogVersion>2.6.0</SerilogVersion>
     <SerilogConsoleVersion>3.1.1</SerilogConsoleVersion>
+    <SystemImmutableVersion>1.4.0</SystemImmutableVersion>
 
     <TestSdkVersion>15.5.0</TestSdkVersion>
     <TestFrameworkVersion>1.2.0</TestFrameworkVersion>

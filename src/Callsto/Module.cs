@@ -3,11 +3,13 @@
 
 namespace Callsto
 {
-    using System.Collections.Generic;
+    using System.Collections.Immutable;
     using Mono.Cecil;
 
-    /// <inheritdoc/>
-    public class Module : IModule
+    /// <summary>
+    /// Abstracts a net assembly module.
+    /// </summary>
+    public class Module
     {
         private string assemblyPath;
 
@@ -20,10 +22,15 @@ namespace Callsto
             this.assemblyPath = assemblyPath;
         }
 
-        /// <inheritdoc/>
-        public IEnumerable<TypeDefinition> Types
+        /// <summary>
+        /// Gets the types defined in this module.
+        /// </summary>
+        public ImmutableList<TypeDefinition> Types
         {
-            get;
+            get
+            {
+                return ModuleDefinition.ReadModule(this.assemblyPath).Types.ToImmutableList();
+            }
         }
     }
 }

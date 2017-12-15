@@ -56,18 +56,72 @@
             Gets the source node reference.
             </summary>
         </member>
-        <member name="T:Callsto.IModule">
+        <member name="M:Callsto.Edge`1.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Callsto.EdgeExtensions">
+            <summary>
+            Operations on edges.
+            </summary>
+        </member>
+        <member name="M:Callsto.EdgeExtensions.Graph``1(System.Collections.Generic.IEnumerable{Callsto.Edge{``0}})">
+            <summary>
+            Builds a graph.
+            </summary>
+            <param name="edges">Set of edges.</param>
+            <returns>Returns a set of graphs from the edges.</returns>
+            <typeparam name="T">Type of tree node.</typeparam>
+        </member>
+        <member name="T:Callsto.GraphConfig">
+            <summary>
+            Configuration for a graph.
+            </summary>
+        </member>
+        <member name="P:Callsto.GraphConfig.Default">
+            <summary>
+            Gets a default instance of the configuration.
+            </summary>
+        </member>
+        <member name="P:Callsto.GraphConfig.Assemblies">
+            <summary>
+            Gets the set of assemblies configured for exploration.
+            </summary>
+        </member>
+        <member name="M:Callsto.GraphConfig.Assembly(System.String)">
+            <summary>
+            Adds an assembly into configuration.
+            </summary>
+            <param name="path">Path of an assembly to explore.</param>
+            <returns>Configuration instance.</returns>
+        </member>
+        <member name="T:Callsto.GraphConfigExtensions">
+            <summary>
+            Extensions for a configuration instance.
+            </summary>
+        </member>
+        <member name="M:Callsto.GraphConfigExtensions.Modules(Callsto.GraphConfig)">
+            <summary>
+            Gets an immutable list of modules for this configuration.
+            </summary>
+            <param name="config">Configuration instance.</param>
+            <returns>List of modules.</returns>
+        </member>
+        <member name="T:Callsto.Method">
+            <summary>
+            Abstractions of a Method in CIL.
+            </summary>
+        </member>
+        <member name="M:Callsto.Method.Edges(Mono.Cecil.MethodReference)">
+            <summary>
+            Gets the edges between a method and it's children.
+            </summary>
+            <param name="methodref">Method reference.</param>
+            <returns>Edges between the method and it's children.</returns>
+        </member>
+        <member name="T:Callsto.Module">
             <summary>
             Abstracts a net assembly module.
             </summary>
-        </member>
-        <member name="P:Callsto.IModule.Types">
-            <summary>
-            Gets the types defined in this module.
-            </summary>
-        </member>
-        <member name="T:Callsto.Module">
-            <inheritdoc/>
         </member>
         <member name="M:Callsto.Module.#ctor(System.String)">
             <summary>
@@ -76,7 +130,9 @@
             <param name="assemblyPath">Full path to an assembly.</param>
         </member>
         <member name="P:Callsto.Module.Types">
-            <inheritdoc/>
+            <summary>
+            Gets the types defined in this module.
+            </summary>
         </member>
         <member name="T:Callsto.Node`1">
             <summary>
@@ -99,6 +155,21 @@
             <summary>
             Gets the set of outgoing edges.
             </summary>
+        </member>
+        <member name="T:Callsto.NodeExtensions">
+            <summary>
+            Operations on a <see cref="T:Callsto.Node`1"/>.
+            </summary>
+        </member>
+        <member name="M:Callsto.NodeExtensions.DepthFirstWalk``1(System.Collections.Generic.IEnumerable{Callsto.Node{``0}},System.Action{Callsto.Node{``0}},System.Action{Callsto.Node{``0}})">
+            <summary>
+            Walks a forest of nodes in depth first order. Applies a tee function to each node.
+            </summary>
+            <param name="nodes">Set of nodes in the forest.</param>
+            <param name="print">A print function to apply for each node.</param>
+            <param name="leaf">A print function to apply for each leaf node.</param>
+            <returns>Returns a set of nodes in the forest.</returns>
+            <typeparam name="T">Type of tree node.</typeparam>
         </member>
         <member name="T:Callsto.Program">
             <summary>

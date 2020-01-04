@@ -45,6 +45,7 @@ namespace Callsto
             var callgraph = new CallGraph(options.Files);
             var graph = callgraph.Build();
             ConsoleOutput.ToConsole(graph);
+            System.Console.WriteLine("------");
 
             GraphConfig.Default
                        .Assembly(options.Files.First())
@@ -52,6 +53,11 @@ namespace Callsto
                        .SelectMany(m => m.Types)
                        .SelectMany(t => t.Methods)
                        .SelectMany(m => Method.Edges(m))
+                       .Select(e =>
+                               {
+                                   System.Console.WriteLine("{0} -> {1}", e.Start, e.End);
+                                   return e;
+                               })
                        .Graph()
                        .DepthFirstWalk(m => System.Console.Write("{0}->", m.Element.ToString()), n => System.Console.WriteLine("END"))
                        .ToList()

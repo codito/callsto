@@ -33,18 +33,18 @@ namespace Callsto
 
                 while (stack.TryPop(out Node<T> node))
                 {
-                    if (!visited.Add(node.Element))
+                    var hasChildren = false;
+                    if (visited.Add(node.Element))
                     {
-                        continue;
-                    }
-
-                    foreach (var child in node.Children)
-                    {
-                        stack.Push(child);
+                        hasChildren = node.Children.Any();
+                        foreach (var child in node.Children)
+                        {
+                            stack.Push(child);
+                        }
                     }
 
                     print(node);
-                    if (!node.Children.Any())
+                    if (!hasChildren)
                     {
                         leaf(node);
                     }
